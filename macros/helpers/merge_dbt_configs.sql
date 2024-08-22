@@ -55,27 +55,27 @@
 
             {% set new_models = [] %}
             {% for model_name in model_names %}
-                {% set model_tests = [] %}
+                {% set model_data_tests = [] %}
                 {% if model_name in config_1_model_lookup.keys() %}
-                    {% if "tests" in config_1_model_lookup[model_name].keys() %}
-                        {% for model_test in config_1_model_lookup[model_name]["tests"] %}
-                            {% do model_tests.append(model_test) %}
+                    {% if "data_tests" in config_1_model_lookup[model_name].keys() %}
+                        {% for model_test in config_1_model_lookup[model_name]["data_tests"] %}
+                            {% do model_data_tests.append(model_test) %}
                         {% endfor %}
                     {% endif %}
                 {% endif %}
 
                 {% if model_name in config_2_model_lookup.keys() %}
-                    {% if "tests" in config_2_model_lookup[model_name].keys() %}
-                        {% for model_test in config_2_model_lookup[model_name]["tests"] %}
-                            {% do model_tests.append(model_test) %}
+                    {% if "data_tests" in config_2_model_lookup[model_name].keys() %}
+                        {% for model_test in config_2_model_lookup[model_name]["data_tests"] %}
+                            {% do model_data_tests.append(model_test) %}
                         {% endfor %}
                     {% endif %}
                 {% endif %}
 
                 {% set model = {"name": model_name} %}
 
-                {% if model_tests != [] %}
-                    {% do model.update({"tests": model_tests})%}
+                {% if model_data_tests != [] %}
+                    {% do model.update({"data_tests": model_data_tests})%}
                 {% endif %}
 
                 {% set col_names = [] %}
@@ -108,20 +108,20 @@
                         {% for k, v in config_2_col_lookup[col_name].items() %}
                             {% do new_column.update({k: v}) %}
                         {% endfor %}
-                        {% set col_tests = config_2_col_lookup[col_name]["tests"] %}
+                        {% set col_data_tests = config_2_col_lookup[col_name]["data_tests"] %}
                     {% elif col_name not in config_2_col_lookup.keys() %}
                         {% for k, v in config_1_col_lookup[col_name].items() %}
                             {% do new_column.update({k: v}) %}
                         {% endfor %}
-                        {% set col_tests = config_1_col_lookup[col_name]["tests"] %}
+                        {% set col_data_tests = config_1_col_lookup[col_name]["data_tests"] %}
                     {% else %}
                         {% for k, v in config_1_col_lookup[col_name].items()|list + config_2_col_lookup[col_name].items()|list %}
                             {% do new_column.update({k: v}) %}
                         {% endfor %}
-                        {% set col_tests = config_1_col_lookup[col_name]["tests"] + config_2_col_lookup[col_name]["tests"] %}
+                        {% set col_data_tests = config_1_col_lookup[col_name]["data_tests"] + config_2_col_lookup[col_name]["data_tests"] %}
                     {% endif %}
 
-                    {% do new_column.update({"tests": col_tests}) %}
+                    {% do new_column.update({"data_tests": col_data_tests}) %}
 
                     {% do new_columns.append(new_column) %}
                 {% endfor %}

@@ -119,14 +119,14 @@
 
     {# {{ print(cardinality_results) }} #}
 
-    {% set column_tests = [] %}
+    {% set column_data_tests = [] %}
     {% for cardinality_result in cardinality_results %}
 
         {# {{ print(cardinality_result.COLNAME) }} #}
 
         {% set col_config = {
                 "name": cardinality_result[1],
-                "tests": [
+                "data_tests": [
                     {"accepted_values": {"values": fromjson(cardinality_result[3])|sort}}
                 ]
             }
@@ -136,10 +136,10 @@
             {% do col_config.update({k: v}) %}
         {% endfor %}
 
-        {% do column_tests.append(col_config) %}
+        {% do column_data_tests.append(col_config) %}
     {% endfor %}
 
-    {% set new_dbt_config = {resource_type: [{"name": table_relation.identifier, "columns": column_tests}]} %}
+    {% set new_dbt_config = {resource_type: [{"name": table_relation.identifier, "columns": column_data_tests}]} %}
 
     {# {{ print(new_dbt_config) }} #}
 

@@ -98,7 +98,7 @@
 
     {% set recency_results = zip(timestamp_cols, testgen.query_as_list(timestep_sql)) %}
 
-    {% set table_tests = [] %}
+    {% set table_data_tests = [] %}
     {% for result in recency_results %}
         {% set max_timestep = result[1][0] %}
         {% set avg_timestep = result[1][1] %}
@@ -123,14 +123,14 @@
                 "interval": interval|int
             }
         } %}
-        {% do table_tests.append(test_config) %}
+        {% do table_data_tests.append(test_config) %}
     {% endfor %}
 
 
 
     {% set model = {"name": table_relation.identifier} %}
-    {% if table_tests != [] %}
-        {% do model.update({"tests": table_tests}) %} 
+    {% if table_data_tests != [] %}
+        {% do model.update({"data_tests": table_data_tests}) %}
     {% endif %}
 
     {% set new_dbt_config = {resource_type: [model]} %}

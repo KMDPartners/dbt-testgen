@@ -80,14 +80,14 @@
 
     {% set results = testgen.query_as_list(min_max_sql) %}
 
-    {% set column_tests = [] %}
+    {% set column_data_tests = [] %}
     {% for result in results %}
         {% set min_val = testgen.cast_number(result[1]) %}
         {% set max_val = testgen.cast_number(result[2]) %}
         {% set stddev = testgen.cast_number(result[3]) %}
         {% set col_config = {
                 "name": result[0],
-                "tests": [
+                "data_tests": [
                     {
                         "dbt_utils.accepted_range": {
                             "min_value": testgen.cast_number(min_val - (stddevs*stddev / 2)),
@@ -102,10 +102,10 @@
             {% do col_config.update({k: v}) %}
         {% endfor %}
 
-        {% do column_tests.append(col_config) %}
+        {% do column_data_tests.append(col_config) %}
     {% endfor %}
 
-    {% set model = {"name": table_relation.identifier,  "columns": column_tests} %}
+    {% set model = {"name": table_relation.identifier,  "columns": column_data_tests} %}
 
     {% set new_dbt_config = {resource_type: [model]} %}
 

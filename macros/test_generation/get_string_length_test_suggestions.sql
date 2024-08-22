@@ -88,7 +88,7 @@
 
     {# {{ print(results) }} #}
 
-    {% set column_tests = [] %}
+    {% set column_data_tests = [] %}
     {% for result in results %}
 
         {# {{ print(result) }} #}
@@ -123,7 +123,7 @@
 
         {% set col_config = {
                 "name": result[0],
-                "tests": [test]
+                "data_tests": [test]
             }
         %}
 
@@ -131,10 +131,10 @@
             {% do col_config.update({k: v}) %}
         {% endfor %}
 
-        {% do column_tests.append(col_config) %}
+        {% do column_data_tests.append(col_config) %}
     {% endfor %}
 
-    {% set model = {"name": table_relation.identifier,  "columns": column_tests} %}
+    {% set model = {"name": table_relation.identifier,  "columns": column_data_tests} %}
 
     {% set new_dbt_config = {resource_type: [model]} %}
 

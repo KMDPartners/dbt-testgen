@@ -147,11 +147,11 @@
         {% endif %}
     {% endfor %}
 
-    {% set column_tests = [] %}
-    {% set table_tests = [] %}  
+    {% set column_data_tests = [] %}
+    {% set table_data_tests = [] %}
     {% for unique_key in deduped_unique_keys %}
         {% if unique_key|length == 1 %}
-            {# {% set tests = [
+            {# {% set data_tests = [
                     {"unique": test_config},
                     {"not_null": test_config}
             ] %}
@@ -160,11 +160,11 @@
                 
             {% endif %} #}
 
-            {% set tests = ["unique", "not_null"] %}
+            {% set data_tests = ["unique", "not_null"] %}
 
             {% set col_config = {
                     "name": unique_key[0],
-                    "tests": tests
+                    "data_tests": data_tests
                 }
             %}
 
@@ -172,10 +172,10 @@
                 {% do col_config.update({k: v}) %}
             {% endfor %}
 
-            {% do column_tests.append(col_config) %}
+            {% do column_data_tests.append(col_config) %}
         {% else %}
 
-            {% do table_tests.append({
+            {% do table_data_tests.append({
                 "dbt_utils.unique_combination_of_columns": {
                     "combination_of_columns": unique_key
                 }
@@ -183,9 +183,9 @@
         {% endif %}
     {% endfor %}
 
-    {% set model = {"name": table_relation.identifier,  "columns": column_tests} %}
-    {% if table_tests != [] %}
-        {% do model.update({"tests": table_tests}) %} 
+    {% set model = {"name": table_relation.identifier,  "columns": column_data_tests} %}
+    {% if table_data_tests != [] %}
+        {% do model.update({"data_tests": table_data_tests}) %}
     {% endif %}
 
     {# {{ print(model) }} #}
