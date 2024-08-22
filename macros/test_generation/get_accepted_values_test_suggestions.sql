@@ -127,7 +127,7 @@
         {% set col_config = {
                 "name": cardinality_result[1],
                 "data_tests": [
-                    {"accepted_values": {"values": fromjson(cardinality_result[3])|sort}}
+                    {"accepted_values": {"values": fromjson(cardinality_result[3])|sort}, "config": { "severity": "warn" } }
                 ]
             }
         %}
