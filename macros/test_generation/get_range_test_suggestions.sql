@@ -91,7 +91,8 @@
                     {
                         "dbt_utils.accepted_range": {
                             "min_value": testgen.cast_number(min_val - (stddevs*stddev / 2)),
-                            "max_value": testgen.cast_number(max_val + (stddevs*stddev / 2) )
+                            "max_value": testgen.cast_number(max_val + (stddevs*stddev / 2) ),
+                            "config": { "severity": "warn" }
                         }
                     }
                 ]

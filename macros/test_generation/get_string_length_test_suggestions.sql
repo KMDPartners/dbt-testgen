@@ -115,7 +115,8 @@
                     "dbt_expectations.expect_column_value_lengths_to_be_between": {
                         "min_value": testgen.cast_number(min_val),
                         "max_value": testgen.cast_number(max_val),
-                        "row_condition": adapter.quote(result[0]) ~ " is not null"
+                        "row_condition": adapter.quote(result[0]) ~ " is not null",
+                         "config": { "severity": "warn" }
                     }
                 }
             %}
