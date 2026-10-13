@@ -19,7 +19,7 @@ defaults:
 jobs:
   test-duckdb:
     name: Test on DuckDB
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
@@ -54,7 +54,7 @@ jobs:
 
   test-postgres:
     name: Test on Postgres
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
@@ -90,7 +90,7 @@ jobs:
 
   test-snowflake:
     name: Test on Snowflake
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
@@ -121,7 +121,7 @@ jobs:
 
   test-redshift:
     name: Test on RedShift
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
@@ -152,7 +152,7 @@ jobs:
 
   test-bigquery:
     name: Test on BigQuery
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
@@ -195,7 +195,7 @@ jobs:
 
   test-databricks:
     name: Test on Databricks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     container:
       image: python:3.11
 
